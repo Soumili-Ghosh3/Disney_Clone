@@ -48,6 +48,7 @@ const Nav = styled.nav`
    background-color: #090b13;
    display: flex;
    align-items: center;
+   overflow-x: hidden;
    padding: 0 36px;
 `
 
