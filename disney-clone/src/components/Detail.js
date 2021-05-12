@@ -4,12 +4,15 @@ import styled from 'styled-components'
 function Detail() {
     return (
         <Container>
+
             <Background>
                 <img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2020/10/Captain-America-the-first-avengers-howling-commandos.jpg?q=50&fit=crop&w=960&h=500&dpr=1.5" alt="" />
             </Background>
+
             <ImageTitle>
                 <img src="https://razor.games/wp-content/uploads/2021/01/msedge_UWI4UC3Rzw.png" alt="" />
             </ImageTitle>
+
             <Controls>
                 <PlayButton>
                     <img src="/images/play-icon-black.png" alt="" />
@@ -29,6 +32,14 @@ function Detail() {
                     <img src="/images/group-icon.png" alt="" />
                 </GroupWatchButton>
             </Controls>
+
+            <SubTitle>
+                2018 . 7min . Family, Fantasy, Kids, Animation
+            </SubTitle>
+
+            <Description>
+                This is a nice movie.
+            </Description>
         </Container>
     )
 }
@@ -62,6 +73,7 @@ const ImageTitle = styled.div`
     width: 35vh;
     min-height: 170px;
     min-width: 200px;
+    margin-top: 60px;
 
     img{
         width: 100%;
@@ -120,4 +132,19 @@ const AddButton = styled.button`
 
 const GroupWatchButton = styled(AddButton)`
     background: rgb(0, 0, 0);
+`
+
+const SubTitle = styled.div`
+    color: rgb(249, 249, 249);
+    font-size: 15px;
+    min-height: 20px;
+    margin-top: 26px;
+`
+
+const Description = styled.div`
+    line-height: 1.4;
+    color: rgb(249, 249, 249);
+    font-size: 20px;
+    margin-top: 16px;
+    max-width: 760px;
 `

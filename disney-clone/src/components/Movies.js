@@ -4,9 +4,9 @@ import styled from 'styled-components'
 function Movies() {
     return (
         <Container>
-            <h4>
+            <h2>
                 Recommended For You
-            </h4>
+            </h2>
             <Content>
                 <Wrap>
                     <img src="https://i.pinimg.com/originals/57/bf/4d/57bf4d350e06bf735bd386c426dd0681.jpg" alt="" />
