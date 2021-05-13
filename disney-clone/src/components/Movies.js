@@ -1,37 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
+import { selectMovies } from '../features/movie/movieSlice'
+import { useSelector } from 'react-redux'
  
 function Movies() {
+
+    const movies = useSelector(selectMovies);
+    console.log(movies);
+
     return (
         <Container>
             <h2>
                 Recommended For You
             </h2>
             <Content>
-                <Wrap>
-                    <img src="https://i.pinimg.com/originals/57/bf/4d/57bf4d350e06bf735bd386c426dd0681.jpg" alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://resizing.flixster.com/U_be0EesHZtFjTipJYAEIaVeDXo=/206x305/v2/https://flxt.tmsimg.com/assets/p9895254_p_v10_ak.jpg" alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://upload.wikimedia.org/wikipedia/en/9/96/Zootopia_%28movie_poster%29.jpg" alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRza5Vkg-AbVSLBWopuO0mXapjFrVhQ77UR_g&usqp=CAU" alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://i.pinimg.com/originals/57/bf/4d/57bf4d350e06bf735bd386c426dd0681.jpg" alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://i.pinimg.com/originals/57/bf/4d/57bf4d350e06bf735bd386c426dd0681.jpg" alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://i.pinimg.com/originals/57/bf/4d/57bf4d350e06bf735bd386c426dd0681.jpg" alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://i.pinimg.com/originals/57/bf/4d/57bf4d350e06bf735bd386c426dd0681.jpg" alt="" />
-                </Wrap>
+                {movies && 
+                    movies.map((movie) => {
+                        <Wrap key={movie.id}>
+                            <img src={movie.cardImg} alt=""/>
+                        </Wrap>
+                    })
+                }
             </Content>
         </Container>
     )
