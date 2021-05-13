@@ -1,21 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
+import db from '../firebase'
 
 function Detail() {
 
     const { id } = useParams();
-    console.log(id);
+    const [movie, setMovie] = useState();
+
+    useEffect(() => {
+        db.collection("movies")
+        .doc(id)
+        .get()
+        .then((doc) => {
+            if(doc.exists){
+                setMovie(doc.data());
+            }else{
+
+            }
+        })
+    }, [id])
+
+    console.log("Movie is", movie);
 
     return (
         <Container>
-
-            <Background>
-                <img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2020/10/Captain-America-the-first-avengers-howling-commandos.jpg?q=50&fit=crop&w=960&h=500&dpr=1.5" alt="" />
+            {movie && (
+                <>
+                <Background>
+                <img src={movie.backgroundImg} alt="" />
             </Background>
 
             <ImageTitle>
-                <img src="https://razor.games/wp-content/uploads/2021/01/msedge_UWI4UC3Rzw.png" alt="" />
+                <img src={movie.titleImg} alt="" />
             </ImageTitle>
 
             <Controls>
@@ -39,12 +56,15 @@ function Detail() {
             </Controls>
 
             <SubTitle>
-                2018 . 7min . Family, Fantasy, Kids, Animation
+                {movie.subTitle}
             </SubTitle>
 
             <Description>
-                This is a nice movie.
+                {movie.description}
             </Description>
+            </>
+            )}
+
         </Container>
     )
 }
