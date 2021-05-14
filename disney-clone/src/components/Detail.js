@@ -19,7 +19,7 @@ function Detail() {
 
             }
         })
-    }, [id])
+    }, [])
 
     console.log("Movie is", movie);
 

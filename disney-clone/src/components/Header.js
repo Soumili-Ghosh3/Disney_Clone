@@ -1,10 +1,66 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { auth, provider } from '../firebase'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
+import {
+    selectUserName,
+    selectUserPhoto,
+    setUserLogin,
+    setSignOut
+} from '../features/user/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 function Header() {
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const userName = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
+
+    useEffect(() => {
+        auth.onAuthStateChanged(async(user) => {
+            if(user){
+                dispatch(setUserLogin({
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL
+                }))
+                history.push("/")
+            }
+        })
+    }, [])
+
+    const signIn = () => {
+        auth.signInWithPopup(provider)
+        .then((result) => {
+            let user = result.user;
+            dispatch(setUserLogin({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL
+            }))
+            history.push("/")
+        })
+    }
+
+    const signOut = () => {
+        auth.signOut()
+        .then(() => {
+            dispatch(setSignOut());
+            history.push("/login")
+        })
+    }
+
     return (
         <Nav>
             <Logo src="/images/logo.svg" />
+            {
+                !userName ? (
+                    <LoginContainer>
+                        <LogIn onClick={signIn}> Login </LogIn>
+                    </LoginContainer>
+                 ):
+            <>
             <NavMenu>
                 <a>
                     <img src="/images/home-icon.svg" alt="Not available"/>
@@ -36,7 +92,12 @@ function Header() {
                     <span> SERIES </span>
                 </a>
             </NavMenu>
-            <UserImg src="https://previews.123rf.com/images/pandavector/pandavector1607/pandavector160700056/60025039-business-woman-icon-flat-single-avatar-people-icon-from-the-big-avatar-collection-stock-vector.jpg"/>
+            
+            <UserImg 
+            onClick={signOut}
+            src="https://previews.123rf.com/images/pandavector/pandavector1607/pandavector160700056/60025039-business-woman-icon-flat-single-avatar-people-icon-from-the-big-avatar-collection-stock-vector.jpg"/>
+            </>
+            }
         </Nav>
     )
 }
@@ -105,4 +166,27 @@ const UserImg = styled.img`
     border-radius: 50%;
     cursor: pointer;
 
+`
+
+const LogIn = styled.div`
+    border: 3px solid #f9f9f9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: all 0.2s ease 0s;
+    cursor: pointer;
+
+    &:hover{
+        background-color: #f9f9f9;
+        color: #000;
+        border-color: transparent;
+    }
+`
+
+const LoginContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
 `
