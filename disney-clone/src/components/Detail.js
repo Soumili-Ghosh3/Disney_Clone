@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import db from '../firebase'
 
-function Detail() {
+function Detail(props) {
 
     const { id } = useParams();
-    const [movie, setMovie] = useState();
+    const [movie, setMovie] = useState([]);
 
     useEffect(() => {
         db.collection("movies")
@@ -16,10 +16,13 @@ function Detail() {
             if(doc.exists){
                 setMovie(doc.data());
             }else{
-
+                console.log("no such document in firebase");
             }
         })
-    }, [])
+        .catch((error) => {
+            console.log("Error getting document:", error);
+          });
+    }, [id]);
 
     console.log("Movie is", movie);
 
@@ -29,6 +32,7 @@ function Detail() {
                 <>
                 <Background>
                 <img src={movie.backgroundImg} alt="" />
+                <img src="http://www.movienewsletters.net/photos/277218R1.jpg" alt="" />
             </Background>
 
             <ImageTitle>
