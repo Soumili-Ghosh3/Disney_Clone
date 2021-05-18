@@ -3,10 +3,12 @@ import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import db from '../firebase'
 
-function Detail(props) {
+function Detail() {
 
     const { id } = useParams();
-    const [movie, setMovie] = useState([]);
+    const [movie, setMovie] = useState({});
+    console.log(movie);
+    console.log('hello');
 
     useEffect(() => {
         db.collection("movies")
@@ -30,9 +32,8 @@ function Detail(props) {
         <Container>
             {movie && (
                 <>
-                <Background>
+            <Background>
                 <img src={movie.backgroundImg} alt="" />
-                <img src="http://www.movienewsletters.net/photos/277218R1.jpg" alt="" />
             </Background>
 
             <ImageTitle>
@@ -173,7 +174,7 @@ const SubTitle = styled.div`
 const Description = styled.div`
     line-height: 1.4;
     color: rgb(249, 249, 249);
-    font-size: 20px;
+    font-size: 15px;
     margin-top: 16px;
     max-width: 760px;
 `

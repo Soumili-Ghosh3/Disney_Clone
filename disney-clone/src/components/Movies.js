@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux'
 function Movies() {
 
     const movies = useSelector(selectMovies);
+    console.log('hello');
+    console.log(movies);
     
     return (
         <Container>
@@ -15,15 +17,14 @@ function Movies() {
             </h2>
             <Content>
                 {movies && 
-                    movies.map((movie,key) => {
-                        <Wrap key={key}>
-                            {movie.id}
-                            <Link to={`/detail/` + movie.id}>
+                    movies.map((movie) => (
+                        <Wrap key={movie.id}>
+                            <Link to={`/detail/${movie.id}`}>
                                 <img src={movie.cardImg} alt=""/>
                             </Link>
-                            
+                            console.log({movie.cardImg});
                         </Wrap>
-                    })
+                    ))
                 }
             </Content>
         </Container>
